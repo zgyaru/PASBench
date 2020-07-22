@@ -1,0 +1,25 @@
+Package: PASBench
+Type: Package
+Title: benchmarking study of seven  (PAS) tools for scRNA-seq analysis
+Version: 0.1.0
+Author: yaru
+Maintainer: yaru <1099656126@qq.com>
+Description: This package contains benchmarking analysis methods of seven 
+             Pathway Activity Score (PAS) tools (Pagoda2, AUCell, Vision, 
+             GSVA, ssGSEA, PLAGE and z-score). It provide filtering and 
+             normalizing before PAS calculation. It also provide clustering
+             and visualization after PAS calcualtion
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+
+Depends:
+    R (>= 3.6),
+    Seurat,
+    dplyr,
+    RColorBrewer
+Imports:
+    VISION,
+    pagoda2,
+    AUCell,
+    GSVA
