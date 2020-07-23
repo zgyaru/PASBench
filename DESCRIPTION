@@ -12,14 +12,17 @@ Description: This package contains benchmarking analysis methods of seven
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-
 Depends:
-    R (>= 3.6),
+    R (>= 3.6)
+Imports:
+    RColorBrewer,
     Seurat,
     dplyr,
-    RColorBrewer
-Imports:
+    monocle,
+    shiny
+Suggests:
     VISION,
     pagoda2,
     AUCell,
     GSVA
+RoxygenNote: 7.1.0
