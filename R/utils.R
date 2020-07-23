@@ -1,3 +1,18 @@
+getVarib = function(sc){
+  tryCatch({
+    sc = Seurat::FindVariableFeatures(sc,selection.method = 'vst',verbose=F)
+    return('vst')
+  },error=function(e){
+    tryCatch({
+      sc = Seurat::FindVariableFeatures(sc,selection.method= 'disp',verbose=F)
+      return('disp')
+    },error=function(e){
+      sc = Seurat::FindVariableFeatures(sc,selection.method= 'mvp',verbose=F)
+      return('mvp')
+    })
+  })
+}
+
 
 del_geneSets_roma = function(gSets){
   res = vector(mode='list')

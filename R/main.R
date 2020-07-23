@@ -1,4 +1,73 @@
-#' calculation pipeline
+
+#' calculation Pathway Activity Score
+#'
+#' parameters `counts`,  `gSets_path` and `gSets` are consistent across all tools
+#'
+#' other parameters see details of tools
+#'
+#'
+#'
+#' @param counts gene expresion matrix, rows are genes and cols are cells
+#' @param tool tool name
+#' @param gmt_file pathways in GMT format
+#' @param species species; human or mouse
+#' @param pathway abbreviation for pathway database
+#' @param filter whether filtering for genes expressed in less than 5 percent cells
+#' @param normalize normalization method
+#'
+
+#' @export
+calculate_PAS = function(counts,
+                         tool,
+                         species = 'none',
+                         pathway = 'none',
+                         gmt_file = 'none',
+                         filter = F,
+                         normalize = 'sctransform',
+                         n_cores = 3,
+                         rand_seed = 123){
+
+  if(gmt_file == 'none'){
+    if(species == 'none' || pathway == 'none'){
+      stop("please define species and pathway when do not assign gmt_file")
+    }
+
+    gSets_path = system.file(file.path("gmtFiles",species,
+                                       paste0(pathway,'.gmt')),
+                             package = "PASBench")
+  }else{
+    if(species != 'none' || pathway != 'none'){
+      warning(" 'gmt_file' is already present.
+              Ignoring 'species' and 'pathway'.")
+    }
+    gSets_path = gmt_file
+  }
+
+  if(tool %in% c('pagoda2','vision')){
+    warning(" 'log' transform will counter error for 'pagoda2' or 'vision'.
+            force the 'normalize' to 'sctransform' or you could modify your code
+            to call other normalization function.")
+  }
+
+  score = cal_all_tools(counts,
+                        gSets_path,
+                        tools = tool,
+                        filter = filter,
+                        normalize = normalize,
+                        n_cores = n_cores,
+                        rand_seed = rand_seed
+                        )
+
+  score[[tool]]
+}
+
+
+
+
+
+
+
+#' calculation seven tools
 #'
 #' parameters `counts`,  `gSets_path` and `gSets` are consistent across all tools
 #'
@@ -12,7 +81,6 @@
 #' @param filter whether filtering for genes expressed in less than 5% cells
 #' @param normalize normalization method
 
-#' @export
 cal_all_tools = function(counts,
                          gSets_path,
                          #cells_label,
@@ -22,7 +90,7 @@ cal_all_tools = function(counts,
                                    'plage','zscore'),
                          filter = F,
                          normalize = c('log','CLR','RC','scran','sctransform','none'),
-                         n_cores = 4,
+                         n_cores = 3,
                          rand_seed = 123){
 
 
@@ -181,4 +249,58 @@ cal_all_tools = function(counts,
   }
   names(eval_tools) = tools
   eval_tools
+}
+
+
+#' preparation of visulization object
+#'
+#' @param pas_score a matrix of PAS
+#'
+#'
+#' @export
+prepare_vis = function(pas_score,
+                       n_pcs = 10,
+                       resolution = 0.3){
+  if(is.character(pas_score) == 'character'){
+    stop(" 'pas_score' is a character, cannot convert a character to seurat object ")
+  }
+  pas_score = as.matrix(pas_score)
+  pas_score = na.omit(pas_score)
+  sc = Seurat::CreateSeuratObject(pas_score)
+  sc = Seurat::ScaleData(sc)
+  sc = Seurat::FindVariableFeatures(sc,selection.method = getVarib(sc),verbose=F)
+  sc = Seurat::RunPCA(sc,verbose=F,npcs = n_pcs)
+  sc = Seurat::RunUMAP(sc,dims = 1:n_pcs, n.components = 2,
+                       verbose = F)
+  sc = Seurat::RunTSNE(sc,dims = 1:n_pcs, verbose = F)
+  sc = Seurat::FindNeighbors(sc,dims = 1:n_pcs)
+  sc = Seurat::FindClusters(sc,resolution=resolution)
+  return(sc)
+}
+
+
+
+
+#' visualization of PAS
+#'
+#'
+#'
+#'
+#' @param seurat_oj a seurat object
+#'
+
+#' @export
+PAS_vis = function(seurat_oj){
+  suppressPackageStartupMessages("")
+  appDir = system.file("shiny", package = "PASBench")
+  if(appDir == ""){
+    warning("could not find shiny directory, try-re-installing 'PASBench'.")
+  }
+
+  .GlobalEnv$.sc_oj = seurat_oj
+  .GlobalEnv$.pathways = rownames(Seurat::GetAssayData(seurat_oj))
+
+  on.exit(rm(list = c(".sc_oj",".pathways")))
+
+  shiny::runApp(appDir, launch.browser = T, display.mode = "normal")
 }

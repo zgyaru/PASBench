@@ -4,14 +4,6 @@
 #'
 #' other parameters see details of tools
 #'
-#'
-#'
-#' @param counts gene expresion matrix, rows are genes and cols are cells
-#' @param gSets_path patwhays/gene sets in clasical GMT format
-#' @param gSets a list of pathways/gene sets
-
-
-
 
 
 
