@@ -7,9 +7,27 @@ Single-cell RNA sequencing (scRNA-seq) analysis enables researchers to uncover m
 This reposity contain seven PAS tools and provide a shiny APP to explore results
 
 ## Installation
+
 ```
 devtools::install_github("ZhangBuDiu/PASBench")
 ```
+
+If you want use Pagoda2 and Vision, please install them through follow code
+
+```
+if (!requireNamespace("VISION", quietly = TRUE)){
+  devtools::install_github("YosefLab/VISION")
+}else{
+  library(VISION)
+}
+
+if (!requireNamespace("pagoda2", quietly = TRUE)){
+  devtools::install_github("hms-dbmi/pagoda2")
+}else{
+  library(pagoda2)
+}
+```
+
 
 ## Running with an example
 
@@ -19,7 +37,7 @@ calculating pathway activity score.
 User could select species and pathway database or assign customized pathways in GMT format
 ```
 data("counts")
-pas_score = calculate_PAS(counts, tool='pagoda2',species='human',pathway='kegg')
+pas_score = calculate_PAS(counts, tool='pagoda2',species='human',pathway='kegg',normalize='none')
 # pas_score = calculate_PAS(counts, gmt_file = 'path/to/file.gmt')
 ```
 ### Step2: 
@@ -66,20 +84,20 @@ PASBench provides a user-interactive and flexible webpage for visulization and e
 | - | :-: | -: |
 | hallmarker | Hallmark gene sets | 50 |
 | CGP | genetic and chemical perturbations | 3297 |
-|biocarta | BioCarta pathway database | 289|
-|kegg | KEGG pathway database | 186|
-|PID | PID pathway database | 196|
-|reactome | Reactome pathway database | 1532|
-|TFT | transcriptional factor targets | 1137|
-|CGN | cancer gene neighborhoods | 427|
+|biocarta | BioCarta pathway database | 289 |
+|kegg | KEGG pathway database | 186 |
+|PID | PID pathway database | 196 |
+|reactome | Reactome pathway database | 1532 |
+|TFT | transcriptional factor targets | 1137 |
+|CGN | cancer gene neighborhoods | 427 |
 |CM | cancer models | 431|
-|GO.bp | GO biological process | 7530|
-|GO.cc | Co cellular Component | 999|
+|GO.bp | GO biological process | 7530 |
+|GO.cc | Co cellular Component | 999 |
 |GO.mf | GO molecular fucntion | 1663|
-|OncoG | oncogenic signatures | 189|
-|Immu | immunologic signatures | 4872|
-|panther | protein annotation through evolutionary relationship | 94|
-|humancyc | human metabonomics | 127|
+|OncoG | oncogenic signatures | 189 |
+|Immu | immunologic signatures | 4872 |
+|panther | protein annotation through evolutionary relationship | 94 |
+|humancyc | human metabonomics | 127 |
 
 
 #### `mouse`
@@ -95,6 +113,4 @@ PASBench provides a user-interactive and flexible webpage for visulization and e
 |GO.bp | GO biological process | 8203|
 |GO.cc | Co cellular Component | 1082|
 |GO.mf | GO molecular fucntion | 3240|
-
-
 

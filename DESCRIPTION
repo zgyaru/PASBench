@@ -16,6 +16,7 @@ Depends:
     R (>= 3.6)
 Imports:
     RColorBrewer,
+    ggplot2,
     Seurat,
     dplyr,
     monocle,

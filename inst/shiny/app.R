@@ -1,4 +1,5 @@
 
+library(dplyr)
 
 
 sc = .GlobalEnv$.sc_oj
@@ -90,7 +91,7 @@ ui = fluidPage(
                     value = 5),
         sliderInput(inputId = 'logFC', label = 'threshold of logFC:',
                     min = 0, max = 1,
-                    value = 0.25),
+                    value = 0.1),
 
         sliderInput(inputId = 'pct', label = 'threshold of pct:',
                     min = 0, max = 0.5,
@@ -143,7 +144,7 @@ server = function(input, output){
   ## update seurat object if resolution changed
   scPCA = reactive({
     req(input$resol)
-    sc = Seurat::FindNeighbors(sc,dims = 1:10)
+    sc = Seurat::FindNeighbors(sc)
     sc = Seurat::FindClusters(sc,resolution=input$resol)
   })
 
@@ -182,12 +183,12 @@ server = function(input, output){
     colnames(pdata) = c('cluster')
     fdata <- data.frame(gene_short_name = row.names(GetAssayData(ss)),
                         row.names = row.names(GetAssayData(ss)))
-    cds <- newCellDataSet(GetAssayData(ss),
+    cds <- monocle::newCellDataSet(GetAssayData(ss),
                           phenoData = new('AnnotatedDataFrame', data = pdata),
                           featureData = new('AnnotatedDataFrame', data = fdata),
-                          expressionFamily = tobit())
-    cds <- reduceDimension(cds, max_components = 2, method = 'DDRTree')
-    cds <- orderCells(cds)
+                          expressionFamily = monocle::tobit())
+    cds <- monocle::reduceDimension(cds, max_components = 2, method = 'DDRTree')
+    cds <- monocle::orderCells(cds)
   })
 
 
@@ -195,7 +196,7 @@ server = function(input, output){
   monocle_time = reactive({
     req(input$start_cluster)
     cds <- monocle_cds()
-    cds <- orderCells(cds, root_state = GM_state(cds,input$start_cluster))
+    cds <- monocle::orderCells(cds, root_state = GM_state(cds,input$start_cluster))
   })
 
 
@@ -237,14 +238,14 @@ server = function(input, output){
   ## trajectory from monocle
   output$tarjectory <- renderPlot(
     if(input$show_traject){
-      plot_cell_trajectory(monocle_cds(), color_by = "cluster")
+      monocle::plot_cell_trajectory(monocle_cds(), color_by = "cluster")
     }
   )
 
   ## pseudo time
   output$pseudotime <- renderPlot(
     if(input$show_traject){
-      plot_cell_trajectory(monocle_time(), color_by = "Pseudotime")
+      monocle::plot_cell_trajectory(monocle_time(), color_by = "Pseudotime")
     }
   )
 

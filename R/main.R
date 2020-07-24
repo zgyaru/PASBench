@@ -174,7 +174,7 @@ cal_all_tools = function(counts,
       cat("scran nomalization success\n")
     }else if(normalize == 'sctransform'){
 
-      expr_ob = Seurat::CreateSeuratObject(counts=counts[,])
+      expr_ob = Seurat::CreateSeuratObject(counts=counts2[,])
       expr_ob = Seurat::SCTransform(expr_ob,verbose=FALSE)
       counts = as.matrix(expr_ob@assays$SCT@data)
       rm(expr_ob)
@@ -275,19 +275,20 @@ cal_all_tools = function(counts,
 #' @export
 prepare_vis = function(pas_score,
                        n_pcs = 10,
-                       resolution = 0.3){
+                       resolution = 0.5){
   if(is.character(pas_score) == 'character'){
     stop(" 'pas_score' is a character, cannot convert a character to seurat object ")
   }
-  pas_score = as.matrix(pas_score)
-  pas_score = na.omit(pas_score)
+  perplexity = min(floor((ncol(pas_score)-1)/3),30)
+  n_pcs = min(n_pcs,nrow(pas_score)-1)
+
   sc = Seurat::CreateSeuratObject(pas_score)
   sc = Seurat::ScaleData(sc)
   sc = Seurat::FindVariableFeatures(sc,selection.method = getVarib(sc),verbose=F)
   sc = Seurat::RunPCA(sc,verbose=F,npcs = n_pcs)
   sc = Seurat::RunUMAP(sc,dims = 1:n_pcs, n.components = 2,
                        verbose = F)
-  sc = Seurat::RunTSNE(sc,dims = 1:n_pcs, verbose = F)
+  sc = Seurat::RunTSNE(sc,dims = 1:n_pcs, perplexity=perplexity, verbose = F)
   sc = Seurat::FindNeighbors(sc,dims = 1:n_pcs)
   sc = Seurat::FindClusters(sc,resolution=resolution)
   return(sc)
@@ -314,6 +315,7 @@ PAS_vis = function(seurat_oj){
 
   .GlobalEnv$.sc_oj = seurat_oj
   .GlobalEnv$.pathways = rownames(Seurat::GetAssayData(seurat_oj))
+
 
   on.exit(rm(list = c(".sc_oj",".pathways")))
 
