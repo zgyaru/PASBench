@@ -44,19 +44,19 @@ PASBench provides a user-interactive and flexible webpage for visulization and e
 #### Panel1: clustering analysis
 
 
-<div align=center style="border:1px solid #000"><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/clustering.png"/> </div>
+<div align=center style="border:5px solid #000"><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/clustering.png"/> </div>
 
 
 #### Panel2: differential analysis (click GO!)
 
 
-<div align=center style="border:1px solid #000"><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/differential.png"/> </div>
+<div align=center style="border:5px solid #000"><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/differential.png"/> </div>
 
 
 #### Panel2: trajecoty analysis (click GO!)
 
 
-<div align=center style="border:1px solid #000"><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/trajectory.png"/> </div>
+<div align=center style="border:5px solid #000"><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/trajectory.png"/> </div>
 
 ## Detials
 ### pathway
