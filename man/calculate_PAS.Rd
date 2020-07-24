@@ -37,3 +37,7 @@ parameters `counts`,  `gSets_path` and `gSets` are consistent across all tools
 \details{
 other parameters see details of tools
 }
+\examples{
+counts = load_counts()
+score = calculate_PAS(counts, 'AUCell', 'human','kegg')
+}

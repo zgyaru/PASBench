@@ -21,3 +21,42 @@ PASBench::PAS_vis(vis_oj)
 
 ### Results
 a user-interactive visulation page
+
+
+### Detials
+#### pathway
+##### human
+Name | Detials  | Number of gene sets
+- | :-: 
+hallmarker | Hallmark gene sets | 50
+CGP | genetic and chemical perturbations | 3297
+biocarta | BioCarta pathway database | 289
+kegg | KEGG pathway database | 186
+PID | PID pathway database | 196
+reactome | Reactome pathway database | 1532
+TFT | transcriptional factor targets | 1137
+CGN | cancer gene neighborhoods | 427
+CM | cancer models | 431
+GO.bp | GO biological process | 7530
+GO.cc | Co cellular Component | 999
+GO.mf | GO molecular fucntion | 1663
+OncoG | oncogenic signatures | 189
+Immu | immunologic signatures | 4872
+panther | protein annotation through evolutionary relationship | 94
+humancyc | human metabonomics | 127
+
+
+##### mouse
+Name | Detials  | Number of gene sets
+- | :-: 
+kegg | KEGG pathway database | 259
+PID | PID pathway database | 193
+panther | protein annotation through evolutionary relationship | 151
+mousecyc | mouse metabonomics | 321
+biocarta | BioCarta pathway database | 176
+reactome | Reactome pathway database | 4342
+TFT | transcriptional factor targets | 373
+GO.bp | GO biological process | 8203
+GO.cc | Co cellular Component | 1082
+GO.mf | GO molecular fucntion | 3240
+

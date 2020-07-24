@@ -8,7 +8,7 @@ load_counts = function(){
   if(folder == ""){
     stop("could not find shiny directory, try-re-installing 'PASBench'.")
   }
-  readRDS(fil.path(folder, 'counts.rds'))
+  readRDS(fil.path(folder, 'example/counts.rds'))
 }
 
 #' loading visualization object
@@ -20,5 +20,5 @@ load_visOJ = function(){
   if(folder == ""){
     stop("could not find shiny directory, try-re-installing 'PASBench'.")
   }
-  readRDS(fil.path(folder, 'vis_oj.rds'))
+  readRDS(fil.path(folder, 'example/vis_oj.rds'))
 }

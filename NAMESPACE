@@ -2,4 +2,6 @@
 
 export(PAS_vis)
 export(calculate_PAS)
+export(load_counts)
+export(load_visOJ)
 export(prepare_vis)

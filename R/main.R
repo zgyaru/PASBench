@@ -15,6 +15,10 @@
 #' @param filter whether filtering for genes expressed in less than 5 percent cells
 #' @param normalize normalization method
 #'
+#'
+#' @examples
+#' counts = load_counts()
+#' score = calculate_PAS(counts, 'AUCell', 'human','kegg')
 
 #' @export
 calculate_PAS = function(counts,
