@@ -27,7 +27,7 @@ a user-interactive visulation page
 ### pathway
 #### human
 Name | Detials  | Number of gene sets
-- | :-: | :-: 
+- | :-: | -: 
 hallmarker | Hallmark gene sets | 50
 CGP | genetic and chemical perturbations | 3297
 biocarta | BioCarta pathway database | 289
@@ -48,7 +48,7 @@ humancyc | human metabonomics | 127
 
 #### mouse
 Name | Detials  | Number of gene sets
-- | :-: | :-: 
+- | :-: | -: 
 kegg | KEGG pathway database | 259
 PID | PID pathway database | 193
 panther | protein annotation through evolutionary relationship | 151
