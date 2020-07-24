@@ -14,8 +14,6 @@ devtools::install_github("ZhangBuDiu/PASBench")
 ## Running with an example
 <<<<<<< HEAD
 ### Step1: calculating pathway activity score. User could select species and pathway database or assign customized pathways in GMT format
-=======
->>>>>>> origin/master
 ```
 counts = PASBench::load_counts()
 pas_score = PASBench::calculate_PAS(counts, tool='pagoda2',species='human',pathway='kegg')
@@ -33,13 +31,13 @@ PASBench::PAS_vis(vis_oj)
 ## Results
 a user-interactive visulation page
 Panel1: clustering analysis 
-<div align=center><img width="130" height="30" src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/clustering.png"/> </div>
+<div align=center><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/clustering.png"/> </div>
 
 Panel2: differential analysis (click GO!)
-<div align=center><img width="130" height="30" src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/differential.png"/> </div>
+<div align=center><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/differential.png"/> </div>
 
 Panel2: trajecoty analysis (click GO!)
-<div align=center><img width="130" height="30" src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/trajectory.png"/> </div>
+<div align=center><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/trajectory.png"/> </div>
 
 ## Detials
 ### pathway
