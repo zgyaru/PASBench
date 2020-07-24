@@ -143,7 +143,7 @@ cal_AUCell = function(counts,
   ## matrix could be integer or numeric
 
   tryCatch({
-    print(gc())
+
     # @must step1: rank genes
     ac_rankings = AUCell::AUCell_buildRankings(counts[,],
                                                # matrix, dgCMatrix, SummarizedExperiment, ExpressionSet
@@ -154,7 +154,7 @@ cal_AUCell = function(counts,
                                                # slot name of assay containing expression matrix
                                                verbose = F)
     # @must step2: calculate AUC scores
-    print(gc())
+
     sc_AUC = AUCell::AUCell_calcAUC(gSets,
                                     ac_rankings,
                                     normAUC=T,
@@ -164,9 +164,9 @@ cal_AUCell = function(counts,
                                     # default: 5% of pathways; recommend: 1%-20%
                                     verbose = F
     )
-    print(gc())
+
     score = AUCell::getAUC(sc_AUC)
-    print(gc())
+
     return(score)
   },error = function(e){
     print(e)
@@ -258,16 +258,16 @@ cal_vision = function(counts,
     #}else{
     #  projection_method = 'tSNE30'
     #}
-    print(gc())
+
     vis = VISION::Vision(counts,            ## Gene X Cell
                          # data.frame; sparseMatrix; dgeMatrix; ExpressionSet; SummarizedExperiment; Seurat
                          signatures = gSets_path,
                          projection_method = 'UMAP',
                          sig_gene_threshold=0)
-    print(gc())
+
     options(mc.cores=n_cores)
     vis = VISION::analyze(vis)
-    print(gc())
+
     score = t(vis@SigScores)    ## pathway X cell
     return(score)
   },error = function(e){
@@ -299,16 +299,16 @@ cal_pagoda2 = function(counts,
   # n.cores = detectCores(), n.randomizations = 100, weight.k = 0.9,
   # verbose = 0, weight.df.power = 1, smooth.df = -1,
   # theta.range = c(0.01, 100), gene.length = NULL
-  print(gc())
+
   nPcs = min(round(ncol(counts)/5),5)
   #counts = apply(counts,2,function(x) {storage.mode(x) = 'integer'; x})
   tryCatch({
     p2 = Pagoda2$new(counts, n.cores = n_cores,log.scale=F)
-    print(gc())
+
     p2$adjustVariance(plot=F)
-    print(gc())
+
     p2$calculatePcaReduction(nPcs = nPcs,use.odgenes=F,fastpath=F)
-    print(gc())
+
     path_names = c()
     env = new.env(parent=globalenv())
     invisible(lapply(1:length(gSets),function(i) {
@@ -319,11 +319,11 @@ cal_pagoda2 = function(counts,
         path_names = c(path_names, name)
       }
     }))
-    print(gc())
+
     p2$testPathwayOverdispersion(setenv = env, verbose = T,
                                  recalculate.pca = T,
                                  min.pathway.size = 1)
-    print(gc())
+
     path_names = names(p2@.xData$misc$pwpca)
     score = matrix(NA,nrow=length(path_names),ncol=ncol(counts))
     rownames(score) = path_names
@@ -333,7 +333,7 @@ cal_pagoda2 = function(counts,
         score[i,] = as.numeric(p2@.xData$misc$pwpca[[i]]$xp$scores)
       }
     }
-    print(gc())
+
     return(score)
   },error = function(e){
     print(e)
@@ -349,13 +349,13 @@ cal_gsva = function(counts,
   ## matrix could be integer or numeric
 
   tryCatch({
-    print(gc())
+
     score = GSVA::gsva(counts,
                        gSets,
                        method='gsva',
                        parallel.sz=n_cores,
                        verbose=T)
-    print(gc())
+
     return(score)
   },error = function(e){
     print(e)
@@ -371,13 +371,13 @@ cal_ssgsea = function(counts,
   ## matrix could be integer or numeric
 
   tryCatch({
-    print(gc())
+
     score = GSVA::gsva(counts,
                        gSets,
                        method='ssgsea',
                        parallel.sz=n_cores,
                        verbose=T)
-    print(gc())
+
     return(score)
   },error = function(e){
     print(e)
@@ -392,13 +392,13 @@ cal_plage = function(counts,
   ## matrix could be integer or numeric
 
   tryCatch({
-    print(gc())
+
     score = GSVA::gsva(counts,
                        gSets,
                        method='plage',
                        parallel.sz=n_cores,
                        verbose=T)
-    print(gc())
+
     return(score)
   },error = function(e){
     print(e)
@@ -413,13 +413,13 @@ cal_zscore = function(counts,
   ## matrix could be integer or numeric
 
   tryCatch({
-    print(gc())
+
     score = GSVA::gsva(counts,
                        gSets,
                        method='zscore',
                        parallel.sz=n_cores,
                        verbose=T)
-    print(gc())
+
     return(score)
   },error = function(e){
     print(e)

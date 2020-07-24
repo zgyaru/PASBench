@@ -4,12 +4,11 @@
 #' @export
 load_counts = function(){
 
-  folder = system.file("data", package = "PASBench")
+  folder = system.file("example", package = "PASBench")
   if(folder == ""){
-    stop("could not find shiny directory, try-re-installing 'PASBench'.")
+    stop("could not find example directory, try-re-installing 'PASBench'.")
   }
-  print(file.path(folder, 'example/counts.rds'))
-  readRDS(file.path(folder, 'example/counts.rds'))
+  readRDS(file.path(folder, 'counts.rds'))
 }
 
 #' loading visualization object
@@ -17,9 +16,9 @@ load_counts = function(){
 #' @export
 load_visOJ = function(){
 
-  folder = system.file("data", package = "PASBench")
+  folder = system.file("example", package = "PASBench")
   if(folder == ""){
-    stop("could not find shiny directory, try-re-installing 'PASBench'.")
+    stop("could not find example directory, try-re-installing 'PASBench'.")
   }
-  readRDS(file.path(folder, 'example/vis_oj.rds'))
+  readRDS(file.path(folder, 'vis_oj.rds'))
 }

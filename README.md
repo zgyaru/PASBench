@@ -18,13 +18,14 @@ calculating pathway activity score.
 
 User could select species and pathway database or assign customized pathways in GMT format
 ```
-counts = load_counts()
+data("counts")
 pas_score = calculate_PAS(counts, tool='pagoda2',species='human',pathway='kegg')
 # pas_score = calculate_PAS(counts, gmt_file = 'path/to/file.gmt')
 ```
 ### Step2: 
 preparing visualization object
 ```
+# data("vis_oj.rda")
 vis_oj = prepare_vis(pas_score)
 ```
 ### Setp3: 

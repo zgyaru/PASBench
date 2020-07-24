@@ -36,14 +36,12 @@ calculate_PAS = function(counts,
       stop("please define species and pathway when do not assign gmt_file")
     }
 
-    folder = system.file("data", package = "PASBench")
-    if(folder == ""){
+    gmt_folder = system.file("gmtFiles", package = "PASBench")
+    if(gmt_folder == ""){
       stop("could not find shiny directory, try-re-installing 'PASBench'.")
     }
-    gmt_folder = file.path(folder, 'gmtFiles')
-    gSets_path = system.file(file.path(gmt_folder,species,
-                                       paste0(pathway,'.gmt')),
-                             package = "PASBench")
+
+    gSets_path = file.path(gmt_folder,species,paste0(pathway,'.gmt'))
   }else{
     if(species != 'none' || pathway != 'none'){
       warning(" 'gmt_file' is already present.
@@ -57,6 +55,9 @@ calculate_PAS = function(counts,
             force the 'normalize' to 'sctransform' or you could modify your code
             to call other normalization function.")
   }
+  counts = na.omit(counts)
+  counts = counts[which(rownames(counts) != ''),]
+
 
   score = cal_all_tools(counts,
                         gSets_path,
@@ -87,7 +88,7 @@ calculate_PAS = function(counts,
 #' @param counts gene expresion matrix, rows are genes and cols are cells
 #' @param gSets_path patwhays/gene sets in clasical GMT format
 #' @param tool select PAS tools
-#' @param filter whether filtering for genes expressed in less than 5% cells
+#' @param filter whether filtering for genes expressed in less than 5 percent cells
 #' @param normalize normalization method
 
 cal_all_tools = function(counts,
@@ -115,6 +116,8 @@ cal_all_tools = function(counts,
     counts = counts[which(x = num_cells >= ncol(counts)*0.05),]
     cat(paste("After filtering, dimensions of count are:",dim(counts),collapse=' '))
     cat('\n')
+  }else{
+    cat("Do not filter genes.\n")
   }
 
   ## normalization
@@ -122,12 +125,15 @@ cal_all_tools = function(counts,
     if(normalize == 'log'){
       counts = Seurat::NormalizeData(counts,normalization.method = 'LogNormalize',verbose=0)
       counts = Seurat::ScaleData(counts)
+      cat("log nomalization success\n")
     }else if(normalize == 'CLR'){
       counts = Seurat::NormalizeData(counts,normalization.method = 'CLR',verbose=0)
       counts = Seurat::ScaleData(counts)
+      cat("CLR nomalization success\n")
     }else if(normalize == 'RC'){
       counts = Seurat::NormalizeData(counts,normalization.method = 'RC',verbose=0)
       counts = Seurat::ScaleData(counts)
+      cat("RC nomalization success\n")
     }else if(normalize == 'scran'){
       genes = rownames(counts)
       cells = colnames(counts)
@@ -165,22 +171,23 @@ cal_all_tools = function(counts,
         colnames(counts) = cells
         rm(genes,cells)
       }
-
-
+      cat("scran nomalization success\n")
     }else if(normalize == 'sctransform'){
-      counts = counts[which(rownames(counts) != ''),]
+
       expr_ob = Seurat::CreateSeuratObject(counts=counts[,])
       expr_ob = Seurat::SCTransform(expr_ob,verbose=FALSE)
       counts = as.matrix(expr_ob@assays$SCT@data)
       rm(expr_ob)
+      cat("scTransform nomalization success\n")
     }else if(normalize == 'scnorm_9'){
       tryCatch({
         counts = na.omit(counts)
         DataNorm = SCnorm::SCnorm(counts[,],rep(c(1),ncol(counts)),K=9,NCores=n_cores)
         counts = DataNorm@assays$data$normcounts
         rm(DataNorm)
+        cat("SCnorm nomalization success\n")
       },error=function(e){
-        print("scnorm error")
+        print("SCnorm error")
         print(e)
         return("error")
       })
@@ -190,17 +197,21 @@ cal_all_tools = function(counts,
         DataNorm = SCnorm::SCnorm(counts[,],rep(c(1),ncol(counts)),K=5,NCores=n_cores)
         counts = DataNorm@assays$data$normcounts
         rm(DataNorm)
+        cat("SCnorm nomalization success\n")
       },error=function(e){
-        print("scnorm error")
+        print("SCnorm error")
         print(e)
         return("error")
       })
 
-    }},error=function(e){
+    }else{
+      cat("Do not normalize PAS.\n")
+    }
+    },error=function(e){
       print("normalize error")
       return("error")
     })
-  cat("normalize success\n")
+
 
 
 
@@ -248,11 +259,6 @@ cal_all_tools = function(counts,
                    gene = counts)
 
 
-    if(!ifStoreScore){
-      if(class(score) == 'matrix'){
-        score='NA'
-      }
-    }
     eval_tools[[i]] = score
 
   }
