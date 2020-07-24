@@ -26,10 +26,10 @@ a user-interactive visulation page
 ## Detials
 ### pathway
 #### human
-Name | Detials  | Number of gene sets
-- | :-: | -: 
-hallmarker | Hallmark gene sets | 50
-CGP | genetic and chemical perturbations | 3297
+| Name | Detials  | Number of gene sets |
+| - | :-: | -: |
+| hallmarker | Hallmark gene sets | 50 |
+| CGP | genetic and chemical perturbations | 3297 |
 biocarta | BioCarta pathway database | 289
 kegg | KEGG pathway database | 186
 PID | PID pathway database | 196
