@@ -14,7 +14,9 @@ devtools::install_github("ZhangBuDiu/PASBench")
 ## Running with an example
 
 ### Step1: 
-calculating pathway activity score. User could select species and pathway database or assign customized pathways in GMT format
+calculating pathway activity score. 
+
+User could select species and pathway database or assign customized pathways in GMT format
 ```
 counts = PASBench::load_counts()
 pas_score = PASBench::calculate_PAS(counts, tool='pagoda2',species='human',pathway='kegg')
@@ -26,24 +28,28 @@ preparing visualization object
 vis_oj = PASBench::prepare_vis(pas_score)
 ```
 ### Setp3: 
-visulizing through an interactive webpage. The input is a Seurat object which obtained from step2 or user customized.
+visulizing through an interactive webpage. 
+
+The input is a Seurat object which obtained from step2 or user customized.
 ```
 PASBench::PAS_vis(vis_oj)
 ```
 
 ## Results
 
+
 PASBench provides a user-interactive and flexible webpage for visulization and exploration
-<br>
-__Panel1: clustering analysis__
+
+
+#### Panel1: clustering analysis
 <div align=center><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/clustering.png"/> </div>
 
-<br>
-__Panel2: differential analysis (click GO!)__
+
+#### Panel2: differential analysis (click GO!)
 <div align=center><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/differential.png"/> </div>
 
-<br>
-__Panel2: trajecoty analysis (click GO!)__
+
+#### Panel2: trajecoty analysis (click GO!)
 <div align=center><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/trajectory.png"/> </div>
 
 ## Detials
@@ -69,9 +75,7 @@ __Panel2: trajecoty analysis (click GO!)__
 |humancyc | human metabonomics | 127|
 
 
-<<<<<<< HEAD
 #### `mouse`
-=======
 ## Detials
 ### pathway
 #### human
@@ -95,18 +99,4 @@ __Panel2: trajecoty analysis (click GO!)__
 |humancyc | human metabonomics | 127|
 
 
-#### mouse
->>>>>>> origin/master
-|Name | Detials  | Number of gene sets|
-|- | :-: | -: |
-|kegg | KEGG pathway database | 259|
-|PID | PID pathway database | 193
-|panther | protein annotation through evolutionary relationship | 151|
-|mousecyc | mouse metabonomics | 321|
-|biocarta | BioCarta pathway database | 176|
-|reactome | Reactome pathway database | 4342|
-|TFT | transcriptional factor targets | 373|
-|GO.bp | GO biological process | 8203|
-|GO.cc | Co cellular Component | 1082|
-|GO.mf | GO molecular fucntion | 3240|
 
