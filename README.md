@@ -12,31 +12,38 @@ devtools::install_github("ZhangBuDiu/PASBench")
 ```
 
 ## Running with an example
-<<<<<<< HEAD
-### Step1: calculating pathway activity score. User could select species and pathway database or assign customized pathways in GMT format
+
+### Step1: 
+calculating pathway activity score. User could select species and pathway database or assign customized pathways in GMT format
 ```
 counts = PASBench::load_counts()
 pas_score = PASBench::calculate_PAS(counts, tool='pagoda2',species='human',pathway='kegg')
 # pas_score = PASBench::calculate_PAS(counts, gmt_file = 'path/to/file.gmt')
 ```
-### Step2: preparing visualization object
+### Step2: 
+preparing visualization object
 ```
 vis_oj = PASBench::prepare_vis(pas_score)
 ```
-### Setp3: visulizing through an interactive webpage. The input is a Seurat object which obtained from step2 or user customized.
+### Setp3: 
+visulizing through an interactive webpage. The input is a Seurat object which obtained from step2 or user customized.
 ```
 PASBench::PAS_vis(vis_oj)
 ```
 
 ## Results
-a user-interactive visulation page
-Panel1: clustering analysis 
+
+PASBench provides a user-interactive and flexible webpage for visulization and exploration
+<br>
+__Panel1: clustering analysis__
 <div align=center><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/clustering.png"/> </div>
 
-Panel2: differential analysis (click GO!)
+<br>
+__Panel2: differential analysis (click GO!)__
 <div align=center><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/differential.png"/> </div>
 
-Panel2: trajecoty analysis (click GO!)
+<br>
+__Panel2: trajecoty analysis (click GO!)__
 <div align=center><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/trajectory.png"/> </div>
 
 ## Detials
