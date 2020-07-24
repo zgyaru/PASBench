@@ -36,7 +36,12 @@ calculate_PAS = function(counts,
       stop("please define species and pathway when do not assign gmt_file")
     }
 
-    gSets_path = system.file(file.path("gmtFiles",species,
+    folder = system.file("data", package = "PASBench")
+    if(folder == ""){
+      stop("could not find shiny directory, try-re-installing 'PASBench'.")
+    }
+    gmt_folder = file.path(folder, 'gmtFiles')
+    gSets_path = system.file(file.path(gmt_folder,species,
                                        paste0(pathway,'.gmt')),
                              package = "PASBench")
   }else{

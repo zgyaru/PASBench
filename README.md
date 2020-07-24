@@ -18,21 +18,21 @@ calculating pathway activity score.
 
 User could select species and pathway database or assign customized pathways in GMT format
 ```
-counts = PASBench::load_counts()
-pas_score = PASBench::calculate_PAS(counts, tool='pagoda2',species='human',pathway='kegg')
-# pas_score = PASBench::calculate_PAS(counts, gmt_file = 'path/to/file.gmt')
+counts = load_counts()
+pas_score = calculate_PAS(counts, tool='pagoda2',species='human',pathway='kegg')
+# pas_score = calculate_PAS(counts, gmt_file = 'path/to/file.gmt')
 ```
 ### Step2: 
 preparing visualization object
 ```
-vis_oj = PASBench::prepare_vis(pas_score)
+vis_oj = prepare_vis(pas_score)
 ```
 ### Setp3: 
 visulizing through an interactive webpage. 
 
 The input is a Seurat object which obtained from step2 or user customized.
 ```
-PASBench::PAS_vis(vis_oj)
+PAS_vis(vis_oj)
 ```
 
 ## Results
