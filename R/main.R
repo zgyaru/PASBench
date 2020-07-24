@@ -294,7 +294,7 @@ PAS_vis = function(seurat_oj){
   suppressPackageStartupMessages("")
   appDir = system.file("shiny", package = "PASBench")
   if(appDir == ""){
-    warning("could not find shiny directory, try-re-installing 'PASBench'.")
+    stop("could not find shiny directory, try-re-installing 'PASBench'.")
   }
 
   .GlobalEnv$.sc_oj = seurat_oj
