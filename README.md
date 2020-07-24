@@ -6,3 +6,12 @@ Single-cell RNA sequencing (scRNA-seq) analysis enables researchers to uncover m
 
 This reposity contain seven PAS tools and provide a shiny APP to explore results
 
+### Installation
+```
+devtools::install_github("ZhangBuDiu/PASBench")
+```
+
+### Running with an example
+```
+pas_score = 
+```
