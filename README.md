@@ -8,13 +8,6 @@ This reposity contain seven PAS tools and evaluation metrics
 
 ### Evaluation scheme
 
-<div align=center style="border:5px solid #000"><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/trajectory.png"/> </div>
-
-
-
-
-
-
 <div align=center style="border:5px solid #000"><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/workflow.jpg"/> </div>
 
 
