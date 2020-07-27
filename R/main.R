@@ -174,7 +174,7 @@ cal_all_tools = function(counts,
       cat("scran nomalization success\n")
     }else if(normalize == 'sctransform'){
 
-      expr_ob = Seurat::CreateSeuratObject(counts=counts2[,])
+      expr_ob = Seurat::CreateSeuratObject(counts=counts[,])
       expr_ob = Seurat::SCTransform(expr_ob,verbose=FALSE)
       counts = as.matrix(expr_ob@assays$SCT@data)
       rm(expr_ob)

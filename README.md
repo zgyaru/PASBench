@@ -4,78 +4,21 @@
 ## Introduction
 Single-cell RNA sequencing (scRNA-seq) analysis enables researchers to uncover more refined and novel cell clusters, which have greatly advanced our understanding of cellular states. There were many state-of-art computational tools developed for clustering cells, identifying marker genes, and visualizing scRNA-seq data. However, biological interpretation of the clustering results remains a big challenge. Pathway activity scores (PASs) analysis has been applied to transform the gene-level data into explainable gene sets representing biological processes or pathways to uncover the potential mechanism of cell heterogeneity. To the best of our knowledge, there were no systematic benchmark studies to evaluate the performance of these unsupervised PAS transformation algorithms.
 
-This reposity contain seven PAS tools and provide a shiny APP to explore results
+This reposity contain seven PAS tools and evaluation metrics
 
-## Installation
-
-```
-devtools::install_github("ZhangBuDiu/PASBench")
-```
-
-If you want use Pagoda2 and Vision, please install them through follow code
-
-```
-if (!requireNamespace("VISION", quietly = TRUE)){
-  devtools::install_github("YosefLab/VISION")
-}else{
-  library(VISION)
-}
-
-if (!requireNamespace("pagoda2", quietly = TRUE)){
-  devtools::install_github("hms-dbmi/pagoda2")
-}else{
-  library(pagoda2)
-}
-```
-
-
-## Running with an example
-
-### Step1: 
-calculating pathway activity score. 
-
-User could select species and pathway database or assign customized pathways in GMT format
-```
-data("counts")
-pas_score = calculate_PAS(counts, tool='pagoda2',species='human',pathway='kegg',normalize='none')
-# pas_score = calculate_PAS(counts, gmt_file = 'path/to/file.gmt')
-```
-### Step2: 
-preparing visualization object
-```
-# data("vis_oj.rda")
-vis_oj = prepare_vis(pas_score)
-```
-### Setp3: 
-visulizing through an interactive webpage. 
-
-The input is a Seurat object which obtained from step2 or user customized.
-```
-PAS_vis(vis_oj)
-```
-
-## Results
-
-
-PASBench provides a user-interactive and flexible webpage for visulization and exploration
-
-
-#### Panel1: clustering analysis
-
-
-<div align=center style="border:5px solid #000"><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/clustering.png"/> </div>
-
-
-#### Panel2: differential analysis (click GO!)
-
-
-<div align=center style="border:5px solid #000"><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/differential.png"/> </div>
-
-
-#### Panel2: trajecoty analysis (click GO!)
-
+### Evaluation scheme
 
 <div align=center style="border:5px solid #000"><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/trajectory.png"/> </div>
+
+
+
+
+
+
+<div align=center style="border:5px solid #000"><img  src="https://github.com/ZhangBuDiu/PASBench/blob/master/pic/workflow.jpg"/> </div>
+
+
+
 
 ## Detials
 ### pathway
