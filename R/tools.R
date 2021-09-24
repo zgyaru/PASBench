@@ -264,7 +264,7 @@ cal_vision = function(counts,
       names(value) <- genes
 
       VISION::createGeneSignature(name = gSet, sigData = value)
-    })
+    }) %>% set_names(names(gSets))
     vis = VISION::Vision(counts,            ## Gene X Cell
                          # data.frame; sparseMatrix; dgeMatrix; ExpressionSet; SummarizedExperiment; Seurat
                         #  signatures = gSets_path,
