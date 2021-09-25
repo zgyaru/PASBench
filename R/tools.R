@@ -229,7 +229,7 @@ cal_ROMA = function(counts,
 
 
 cal_vision = function(counts,
-                      gSets_path,
+                      gSets,
                       n_cores){
 
 
@@ -258,15 +258,22 @@ cal_vision = function(counts,
     #}else{
     #  projection_method = 'tSNE30'
     #}
+    singatures <- lapply(names(gSets), function(gSet){
+      genes <- unlist(geneIds(gSets)[gSet]) %>% unname()
+      value <- rep(1, length(genes))
+      names(value) <- genes
 
+      VISION::createGeneSignature(name = gSet, sigData = value)
+    }) %>% set_names(names(gSets))
     vis = VISION::Vision(counts,            ## Gene X Cell
                          # data.frame; sparseMatrix; dgeMatrix; ExpressionSet; SummarizedExperiment; Seurat
-                         signatures = gSets_path,
+                        #  signatures = gSets_path,
                          projection_method = 'UMAP',
                          sig_gene_threshold=0)
+    vis@sigData <- singatures
 
     options(mc.cores=n_cores)
-    vis = VISION::analyze(vis)
+    vis = VISION::calcSignatureScores(vis)
 
     score = t(vis@SigScores)    ## pathway X cell
     return(score)
